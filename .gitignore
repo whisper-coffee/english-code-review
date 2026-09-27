@@ -1,0 +1,26 @@
+# ===== Java / Maven =====
+target/
+!.mvn/wrapper/maven-wrapper.jar
+*.log
+*.class
+
+# ===== Node / Vite =====
+node_modules/
+dist/
+dist-ssr/
+.vite/
+*.local
+
+# ===== IDE =====
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.settings/
+.classpath
+.project
+
+# ===== OS =====
+.DS_Store
+Thumbs.db
