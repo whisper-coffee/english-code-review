@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.wordreview.mapper.WordMapper">
+
+    <sql id="Base_Column_List">
+        id, word_text, part_of_speech, translation, ask_count, correct_count, created_at, updated_at
+    </sql>
+
+    <!-- 随机取一个单词：个人词库量级下 ORDER BY RAND() 简单可靠；
+         数据量上万后建议改为「随机 ID 区间采样」以避免全表排序 -->
+    <select id="selectRandomOne" resultType="com.example.wordreview.entity.Word">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM words
+        ORDER BY RAND()
+        LIMIT 1
+    </select>
+
+    <!-- 随机取干扰项候选，排除正确答案所在单词 -->
+    <select id="selectRandomExcept" resultType="com.example.wordreview.entity.Word">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM words
+        WHERE id &lt;&gt; #{excludeId}
+        ORDER BY RAND()
+        LIMIT #{limit}
+    </select>
+
+</mapper>
